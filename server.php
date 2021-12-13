@@ -1,4 +1,15 @@
 <?php
+//=============SQL============
+$servername = "10.0.1.178";
+$username = "Webserv";
+$password = "jupl8643";
+$dbname = "HelpChat";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//============================
+
 $host = 'localhost'; //host
 $port = '9000'; //port
 $null = NULL; //null var
@@ -52,9 +63,14 @@ while (true) {
 			$user_name = $tst_msg['name']; //sender name
 			$user_message = $tst_msg['message']; //message text
 			$user_color = $tst_msg['color']; //color
-			
+			$date = date('Y-m-d H:i:s');
+			socket_getpeername($changed_socket, $snd_ip);
+			$sql = "INSERT INTO history (Timestamp, IP, Name, Message) VALUES ('$date','$snd_ip', '$user_name', '$user_message')";
+			$conn->query($sql);
 			//prepare data to be sent to client
 			$response_text = mask(json_encode(array('type'=>'usermsg', 'name'=>$user_name, 'message'=>$user_message, 'color'=>$user_color)));
+			
+			echo($user_name.$user_message.$snd_ip);
 			send_message($response_text); //send data
 			break 2; //exist this loop
 		}
@@ -74,6 +90,7 @@ while (true) {
 }
 // close the listening socket
 socket_close($socket);
+$conn->close();
 
 function send_message($msg)
 {
@@ -144,7 +161,7 @@ function perform_handshaking($receved_header,$client_conn, $host, $port)
 	"Upgrade: websocket\r\n" .
 	"Connection: Upgrade\r\n" .
 	"WebSocket-Origin: $host\r\n" .
-	"WebSocket-Location: ws://$host:$port/demo/shout.php\r\n".
+	"WebSocket-Location: ws://$host:$port/shout.php\r\n".
 	"Sec-WebSocket-Accept:$secAccept\r\n\r\n";
 	socket_write($client_conn,$upgrade,strlen($upgrade));
 }

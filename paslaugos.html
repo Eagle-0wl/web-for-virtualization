@@ -110,11 +110,15 @@ button#send-message {
 <script language="javascript" type="text/javascript">  
 	//create a new WebSocket object.
 	var msgBox = $('#message-box');
-	var wsUri = "ws://localhost:9000/demo/server.php"; 	
+	var ip = document.location.host;
+	//alert(test);
+	
+	
+	var wsUri = "ws://"+ip+":9000/server.php"; 	
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		msgBox.append('<div class="system_msg" style="color:#bbbbbb">Welcome to my "Demo WebSocket Chat box"!</div>'); //notify user
+		msgBox.append('<div class="system_msg" style="color:#bbbbbb">Welcome to my "Welcome to Push To Production chat!"!</div>'); //notify user
 	}
 	// Message received from server
 	websocket.onmessage = function(ev) {
