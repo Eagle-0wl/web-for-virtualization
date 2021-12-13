@@ -70,7 +70,7 @@ while (true) {
 			//prepare data to be sent to client
 			$response_text = mask(json_encode(array('type'=>'usermsg', 'name'=>$user_name, 'message'=>$user_message, 'color'=>$user_color)));
 			
-			echo($user_name.$user_message.$snd_ip);
+			//echo($user_name.$user_message.$snd_ip);
 			send_message($response_text); //send data
 			break 2; //exist this loop
 		}
