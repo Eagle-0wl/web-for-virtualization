@@ -118,7 +118,7 @@ button#send-message {
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		msgBox.append('<div class="system_msg" style="color:#bbbbbb">Welcome to my "Welcome to Push To Production chat!"!</div>'); //notify user
+		msgBox.append('<div class="system_msg" style="color:#bbbbbb">Welcome to Push To Production chat!</div>'); //notify user
 	}
 	// Message received from server
 	websocket.onmessage = function(ev) {
