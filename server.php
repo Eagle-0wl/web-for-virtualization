@@ -4,29 +4,49 @@ $servername = "PTP-SQL";
 $username = "Webserv";
 $password = "jupl8643";
 $dbname = "HelpChat";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-//============================
+//===========================
 
 $host = 'localhost'; //host
 $port = '9000'; //port
 $null = NULL; //null var
 
-//Create TCP/IP sream socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-//reuseable port
-socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 
-//bind socket to specified host
-socket_bind($socket, 0, $port);
+//try {
+	// Create database connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
 
-//listen to port
-socket_listen($socket);
+	//Create TCP/IP sream socket
+	$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
-//create & add listning socket to the list
-$clients = array($socket);
+	//reuseable port
+	socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
+
+	//bind socket to specified host
+	socket_bind($socket, 0, $port);
+
+	//listen to port
+	socket_listen($socket);
+
+	//create & add listning socket to the list
+	$clients = array($socket);
+
+	$myfile = fopen("sanity_check.txt", "w");
+	$txt = "I'm started, entering endless loop - to keep me alive.";
+	fwrite($myfile, $txt);
+	fclose($myfile);
+//}
+//catch{
+	//$myfile = fopen("sanity_check-f.txt", "w");
+	//$txt = "I'm dead :(";
+	//fwrite($myfile, $txt);
+	//fclose($myfile);
+//}
+
+
+
+
+
+
 
 //start endless loop, so that our script doesn't stop
 while (true) {
