@@ -1,6 +1,6 @@
 <?php
 //=============SQL============
-$servername = "10.0.1.178";
+$servername = "PTP-SQL";
 $username = "Webserv";
 $password = "jupl8643";
 $dbname = "HelpChat";
